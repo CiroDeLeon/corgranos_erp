@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="1008" pageHeight="612" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="382"/>
+	<property name="ireport.y" value="0"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="fechainicial" class="java.util.Date"/>
+	<field name="fechafinal" class="java.util.Date"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="liquidacion" class="java.lang.Integer"/>
+	<field name="tiquete" class="java.lang.Integer"/>
+	<field name="humedadpactada" class="java.lang.Double"/>
+	<field name="impurezapactada" class="java.lang.Double"/>
+	<field name="humedadlaboratorio" class="java.lang.Double"/>
+	<field name="impurezalaboratorio" class="java.lang.Double"/>
+	<field name="pesobruto" class="java.lang.Double"/>
+	<field name="pesodestare" class="java.lang.Double"/>
+	<field name="pesoliquidado" class="java.lang.Double"/>
+	<field name="rojolaboratorio" class="java.lang.Double"/>
+	<field name="partidolaboratorio" class="java.lang.Double"/>
+	<field name="yesolaboratorio" class="java.lang.Double"/>
+	<field name="harinalaboratorio" class="java.lang.Double"/>
+	<field name="valorpactado" class="java.lang.Double"/>
+	<field name="valorliquidado" class="java.lang.Double"/>
+	<field name="valorcompra" class="java.lang.Double"/>
+	<field name="fomento" class="java.lang.Double"/>
+	<field name="bolsa" class="java.lang.Double"/>
+	<field name="retefuente" class="java.lang.Double"/>
+	<field name="total" class="java.lang.Double"/>
+	<field name="razonsocialempresa" class="java.lang.String"/>
+	<field name="nitempresa" class="java.lang.String"/>
+	<field name="telefonoempresa" class="java.lang.String"/>
+	<field name="direccionempresa" class="java.lang.String"/>
+	<field name="publicidad" class="java.lang.String"/>
+	<field name="cuenta_t" class="java.lang.String"/>
+	<variable name="sumacompra" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorcompra}]]></variableExpression>
+	</variable>
+	<variable name="sumafomento" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{fomento}]]></variableExpression>
+	</variable>
+	<variable name="sumabolsa" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{bolsa}]]></variableExpression>
+	</variable>
+	<variable name="sumartf" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{retefuente}]]></variableExpression>
+	</variable>
+	<variable name="sumatotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="sumapesobruto" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{pesobruto}]]></variableExpression>
+	</variable>
+	<variable name="sumapesodestare" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{pesodestare}]]></variableExpression>
+	</variable>
+	<variable name="sumapesoliquidado" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{pesoliquidado}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="178" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="10" y="10" width="309" height="90" forecolor="#00CCCC"/>
+			</rectangle>
+			<textField>
+				<reportElement x="25" y="43" width="284" height="17"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nitempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="20" width="284" height="23"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{razonsocialempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="60" width="284" height="16"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccionempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="76" width="284" height="14"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefonoempresa}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="10">
+				<reportElement x="330" y="10" width="638" height="90" forecolor="#00CCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="398" y="33" width="472" height="43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Liquidaciones de un Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="118" width="59" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Proveedor :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="84" y="118" width="341" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="148" width="74" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicial :]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="84" y="148" width="113" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechainicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="246" y="148" width="73" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha Final :]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="319" y="148" width="106" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechafinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="439" y="118" width="100" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cuenta Contable :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="539" y="118" width="356" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cuenta_t}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="968" height="20" backcolor="#006666"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="53" height="20" forecolor="#FFFFFF"/>
+				<textElement/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="53" y="0" width="31" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Liq]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="0" width="39" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Tiq]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="0" width="41" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Hu Pact]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="164" y="0" width="45" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Im Pact]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="209" y="0" width="50" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Hu Lab]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="0" width="47" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[P. Bruto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="0" width="48" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[P. Desta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="0" width="46" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[P. Liq]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="32" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[R lab]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="0" width="31" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[P lab]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="503" y="1" width="36" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Y lab]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="539" y="1" width="36" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Hr lab]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="576" y="1" width="46" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Vr Pact]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="622" y="1" width="41" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Vr liq]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="663" y="0" width="72" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="795" y="1" width="47" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[bolsa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="842" y="1" width="53" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Rtf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="895" y="1" width="73" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="0" width="40" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Im Lab]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="735" y="0" width="60" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[fomento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="0" y="0" width="53" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="0" width="31" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{liquidacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="0" width="39" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tiquete}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="0" width="45" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{impurezapactada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="209" y="0" width="50" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{humedadlaboratorio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="299" y="0" width="47" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{pesobruto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="346" y="0" width="48" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{pesodestare}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="394" y="1" width="46" height="19"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pesoliquidado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="0" width="31" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{partidolaboratorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="32" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{rojolaboratorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="503" y="1" width="36" height="19"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{yesolaboratorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="539" y="0" width="36" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{harinalaboratorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="575" y="1" width="47" height="19"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valorpactado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="622" y="1" width="41" height="19"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorliquidado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="795" y="0" width="47" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{bolsa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="842" y="0" width="53" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{retefuente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="895" y="0" width="73" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="0" width="41" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{humedadpactada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="258" y="0" width="41" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{impurezalaboratorio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="663" y="1" width="72" height="19"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorcompra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="735" y="1" width="60" height="19"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{fomento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="968" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{publicidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="21" splitType="Stretch">
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="663" y="0" width="72" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumacompra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="735" y="0" width="60" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumafomento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="795" y="0" width="47" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumabolsa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="842" y="0" width="53" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumartf}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="895" y="0" width="73" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" isStrikeThrough="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumatotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="299" y="1" width="47" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumapesobruto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="346" y="1" width="48" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumapesodestare}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="394" y="1" width="46" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumapesoliquidado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

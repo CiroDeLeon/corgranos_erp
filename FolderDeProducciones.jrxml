@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="101"/>
+	<field name="razonsocialempresa" class="java.lang.String"/>
+	<field name="nitempresa" class="java.lang.String"/>
+	<field name="direccionempresa" class="java.lang.String"/>
+	<field name="telefonoempresa" class="java.lang.String"/>
+	<field name="publicidad" class="java.lang.String"/>
+	<field name="id" class="java.lang.Object"/>
+	<field name="idmaquila" class="java.lang.Object"/>
+	<field name="fechacontable" class="java.util.Date"/>
+	<field name="articulo" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Double"/>
+	<field name="preciounitario" class="java.lang.Double"/>
+	<field name="idarticulo" class="java.lang.Object"/>
+	<field name="fechacreacion" class="java.util.Date"/>
+	<field name="fechaanulacion" class="java.util.Date"/>
+	<field name="creador" class="java.lang.String"/>
+	<field name="anulador" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="195" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="10" y="10" width="309" height="90" forecolor="#00CCCC"/>
+			</rectangle>
+			<textField>
+				<reportElement x="25" y="43" width="284" height="17"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nitempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="20" width="284" height="23"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{razonsocialempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="60" width="284" height="16"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccionempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="76" width="284" height="14"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefonoempresa}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="10">
+				<reportElement x="329" y="10" width="214" height="90" forecolor="#00CCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="329" y="10" width="214" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Produccion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="329" y="60" width="214" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""+$F{id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="169" width="56" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Maquila :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="127" width="54" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha  :]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="54" y="127" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechacontable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="169" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[""+$F{idmaquila}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="54" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cod.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="0" width="265" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Articulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="54" y="0" width="265" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{articulo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="319" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="53" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[""+$F{idarticulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{publicidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="167" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="60" width="135" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Control Administrativo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="92" width="111" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha Creacion :]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="112" y="92" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechacreacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="92" width="80" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Creador :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="435" y="92" width="96" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{creador}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="128" width="111" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Ultima Modificacion :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="128" width="80" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Responsable :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="435" y="128" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{anulador}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="112" y="128" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaanulacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="555" height="60" forecolor="#FF0000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

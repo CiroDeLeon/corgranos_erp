@@ -1,0 +1,880 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * CrearArticulo.java
+ *
+ * Created on 3/07/2012, 10:33:08 AM
+ */
+package corgranos.Presentacion;
+
+import corgranos.Dominio.Core.Articulo.Articulo;
+import corgranos.Dominio.Core.Articulo.ArticuloService;
+import corgranos.Presentacion.Suscripciones.ISuscripcionBuscarArticulo;
+import corgranos.Presentacion.Suscripciones.ISuscripcionCrearArticulo;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import sic.Dominio.Core.PUC.Cta_PUC;
+import sic.Dominio.Core.PUC.PucService;
+import sic.Presentacion.Modulos.PUC.BuscarEnAuxiliar;
+import sic.Presentacion.Modulos.PUC.BuscarEnPUC;
+import sic.Presentacion.Suscripciones.ISuscripcionBuscarEnAuxiliar;
+import sic.Presentacion.Suscripciones.ISuscripcionBuscarEnPUC;
+
+/**
+ *
+ * @author FANNY BURGOS
+ */
+public class ModificarArticulo extends javax.swing.JFrame implements ISuscripcionBuscarEnPUC,ISuscripcionBuscarArticulo,ISuscripcionBuscarEnAuxiliar{
+    
+    int Aux_Seleccionado=0;
+    int Ingresos=1;
+    Cta_PUC auxIngreso;
+    BuscarEnPUC bp;
+    int Activo=2;
+    Cta_PUC auxActivo;    
+    int Costos=3;
+    int Iva=4;
+    Cta_PUC auxCostos;
+    Cta_PUC auxIva;
+    ArticuloService service;
+    Articulo a;
+    BuscarArticulo ba;
+    private ISuscripcionCrearArticulo suscripcion;
+    Cta_PUC auxempaque;
+    BuscarEnAuxiliar bax;
+    
+    /** Creates new form CrearArticulo */
+    
+    public ModificarArticulo() {
+        initComponents();
+        service=new ArticuloService();
+        this.jFormattedTextField1.setValue(new Long(0));
+        this.jFormattedTextField2.setValue(new Double(0));
+        this.jFormattedTextField3.setValue(new Double(0));
+        this.jFormattedTextField4.setValue(new Long(0));
+        this.jFormattedTextField4.requestFocus();
+        this.LLenarCategorias();
+        this.BuscarArticulo();
+    }
+    void BuscarEnAuxiliar(){
+        bax=new BuscarEnAuxiliar();
+        bax.setSuscripcion(this);
+        this.dispose();
+    }
+    void BuscarEnPUC(){
+        bp=new BuscarEnPUC();
+        bp.show();
+        bp.setSuscripcion(this);
+        this.dispose();
+    }
+    void BuscarArticulo(){
+        ba=new BuscarArticulo();
+        ba.show();
+        ba.setSuscripcion(this);
+        this.dispose();
+    }
+    void Guardar(){
+        String nombre=this.jTextField1.getText().trim();
+        String referencia=this.jTextField2.getText().trim();
+        int cantidadkg=((Long) this.jFormattedTextField1.getValue()).intValue();
+        String tipo=this.jComboBox1.getSelectedItem().toString().toLowerCase().trim();
+        String auxingreso=this.jTextField3.getText();
+        String auxactivo=this.jTextField4.getText();
+        String auxcosto=this.jTextField5.getText();
+        String auxiva=this.jTextField6.getText();
+        String categoria=this.jComboBox2.getSelectedItem().toString().toLowerCase().trim();
+        double preciounitario=((Double)this.jFormattedTextField2.getValue()).doubleValue();
+        double porcentageiva=((Double)this.jFormattedTextField3.getValue()).doubleValue();
+        long codigodebarras=((Long)this.jFormattedTextField4.getValue()).longValue();
+        int sw=0;
+        String auxempaque=this.jTextField7.getText();
+        System.out.println(a.getId());
+        if(service.ModificarArticulo(a.getId(),nombre, referencia, cantidadkg, auxingreso, auxactivo, auxcosto, tipo, categoria, preciounitario, porcentageiva/100,codigodebarras,auxiva,auxempaque)){
+           this.Limpiar();           
+            sw=1;
+        }
+        JOptionPane.showMessageDialog(this, service.ObtenerMensaje());
+        if(sw==1 && suscripcion!=null){
+            this.suscripcion.EventoAlCrearArticulo();
+        }
+    }
+    void LLenarCategorias(){
+        this.jComboBox2.removeAllItems();
+        Iterator it=this.service.getArticulo_dao().ObtenerCategorias().iterator();
+        while(it.hasNext()){
+            this.jComboBox2.addItem(it.next());
+        }
+        this.jComboBox2.repaint();
+    }
+    void Limpiar(){
+        this.jTextField1.setText("");
+        this.jTextField2.setText("");
+        this.jTextField3.setText("");
+        this.jTextField4.setText("");
+        this.jTextField5.setText("");
+        this.jTextField6.setText("");
+        this.auxIngreso=null;
+        this.auxCostos=null;
+        this.auxActivo=null;
+        this.auxIva=null;
+        this.jFormattedTextField1.setValue(new Long(0));
+        this.jFormattedTextField2.setValue(new Double(0));
+        this.jFormattedTextField3.setValue(new Double(0));
+        this.jFormattedTextField4.setValue(new Long(0));
+        this.Aux_Seleccionado=0;
+        this.setArticulo(null);
+        this.LLenarCategorias();
+        this.setCtaAuxiliar(null);
+    }
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        jButton4 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jFormattedTextField4 = new javax.swing.JFormattedTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Modificar Articulo");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel2.setText("Nombre :");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel3.setText("Referencia :");
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField2KeyPressed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setText("Cantidad (Kg,Lt) :");
+
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFormattedTextField1KeyPressed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel5.setText("Aux. Ingresos :");
+
+        jTextField3.setEditable(false);
+
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel6.setText("Aux. Activo :");
+
+        jTextField4.setEditable(false);
+
+        jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton2KeyPressed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel7.setText("Aux. Costos :");
+
+        jTextField5.setEditable(false);
+
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton3KeyPressed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel8.setText("Tipo :");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Producto", "Servicio" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyPressed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel9.setText("Categoria :");
+
+        jComboBox2.setEditable(true);
+        jComboBox2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox2KeyPressed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel10.setText("Precio Unitario :");
+
+        jFormattedTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFormattedTextField2KeyPressed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel11.setText("Porcentage IVA :");
+
+        jFormattedTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFormattedTextField3KeyPressed(evt);
+            }
+        });
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton4.setText("MODIFICAR");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel12.setText("Codigo de Barras :");
+
+        jFormattedTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jFormattedTextField4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFormattedTextField4KeyPressed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel13.setText("Aux. Iva :");
+
+        jTextField6.setEditable(false);
+
+        jButton5.setText("Buscar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jButton5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton5KeyPressed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setText("Aux. Empaque :");
+
+        jTextField7.setEditable(false);
+
+        jButton6.setText("Buscar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jButton6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton6KeyPressed(evt);
+            }
+        });
+
+        jMenu1.setText("Opciones");
+
+        jMenuItem1.setText("BuscarArticulo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addGap(321, 321, 321))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+                                            .addGap(18, 18, 18))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel9)
+                                            .addGap(39, 39, 39)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addGap(52, 52, 52)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(jComboBox2, 0, 177, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jTextField3)
+                                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(44, 44, 44))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel8))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31))
+                    .addComponent(jLabel10))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton6)))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.Aux_Seleccionado=Ingresos;
+        this.BuscarEnPUC();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.Aux_Seleccionado=Activo;
+        this.BuscarEnPUC();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.Aux_Seleccionado=Costos;
+        this.BuscarEnPUC();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==evt.VK_ENTER){
+            this.jTextField2.requestFocus();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jFormattedTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==evt.VK_ENTER){
+            this.jComboBox1.requestFocus();
+        }
+    }//GEN-LAST:event_jFormattedTextField1KeyPressed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+        if(this.jComboBox1.getSelectedItem().equals("Servicio")){
+            this.jButton2.setEnabled(false);
+            this.jButton3.setEnabled(false);
+        }else{
+            this.jButton2.setEnabled(true);
+            this.jButton3.setEnabled(true);
+        }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if(a!=null){
+           this.Guardar();
+        }else{
+           JOptionPane.showMessageDialog(this,"Debes Escoger Un Articulo a Modificar");             
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==evt.VK_ENTER){
+             this.jButton1.requestFocus();
+         }
+    }//GEN-LAST:event_jComboBox1KeyPressed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==evt.VK_ENTER){
+           this.Aux_Seleccionado=Ingresos;
+           this.BuscarEnPUC();           
+        }
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void jButton2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==evt.VK_ENTER){
+           this.Aux_Seleccionado=Activo;
+           this.BuscarEnPUC();           
+        }
+    }//GEN-LAST:event_jButton2KeyPressed
+
+    private void jButton3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==evt.VK_ENTER){
+           this.Aux_Seleccionado=Costos;
+           this.BuscarEnPUC();           
+        }
+    }//GEN-LAST:event_jButton3KeyPressed
+
+    private void jComboBox2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox2KeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==evt.VK_ENTER){
+            this.jFormattedTextField2.requestFocus();
+        }
+    }//GEN-LAST:event_jComboBox2KeyPressed
+
+    private void jFormattedTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField2KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==evt.VK_ENTER){
+            this.jFormattedTextField3.requestFocus();
+        }
+    }//GEN-LAST:event_jFormattedTextField2KeyPressed
+
+    private void jFormattedTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField3KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==evt.VK_ENTER){
+            this.jButton5.requestFocus();
+        }
+    }//GEN-LAST:event_jFormattedTextField3KeyPressed
+
+    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==evt.VK_ENTER){
+            this.jFormattedTextField1.requestFocus();
+        }
+    }//GEN-LAST:event_jTextField2KeyPressed
+
+    private void jFormattedTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField4KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==evt.VK_ENTER){
+            this.jTextField1.requestFocus();
+        }
+    }//GEN-LAST:event_jFormattedTextField4KeyPressed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        this.Aux_Seleccionado=Iva;
+        this.BuscarEnPUC();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton5KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==evt.VK_ENTER){
+          this.Aux_Seleccionado=Iva;
+          this.BuscarEnPUC();
+        }
+    }//GEN-LAST:event_jButton5KeyPressed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if(this.suscripcion!=null){            
+            this.suscripcion.EventoAlCrearArticulo();
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        this.BuscarArticulo();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        this.BuscarEnAuxiliar();
+}//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton6KeyPressed
+        // TODO add your handling code here:
+        if(evt.VK_ENTER==evt.getKeyCode()){
+            this.BuscarEnAuxiliar();
+        }
+        if(evt.VK_RIGHT==evt.getKeyCode()){
+            this.jButton4.requestFocus();
+        }
+        if(evt.VK_DOWN==evt.getKeyCode()){
+            this.jButton4.requestFocus();
+        }
+        
+}//GEN-LAST:event_jButton6KeyPressed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                new ModificarArticulo();
+            }
+        });
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JFormattedTextField jFormattedTextField3;
+    private javax.swing.JFormattedTextField jFormattedTextField4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void EventoDeSeleccionCtaEnPUC() {   
+        if(bp.ObtenerCtaSeleccionada().getId().toString().length()==8){
+           Cta_PUC cta=bp.ObtenerCtaSeleccionada();           
+           this.show();
+           this.bp.dispose();
+           this.setCta_PUC(cta);
+        }else{
+            JOptionPane.showMessageDialog(this.bp,"Debe ser un Aux. (8 Digitos) ");
+        }
+    }
+
+    @Override
+    public void setCta_PUC(Cta_PUC cta) {
+        if(this.Aux_Seleccionado==Ingresos){
+            this.auxIngreso=cta;
+            this.jTextField3.setText(""+this.auxIngreso.getId());
+            this.jTextField3.setToolTipText(""+this.auxIngreso.getDenominacion());
+            this.jButton2.requestFocus();            
+        }
+        if(this.Aux_Seleccionado==this.Activo){
+            this.auxActivo=cta;
+            this.jTextField4.setText(""+this.auxActivo.getId());
+            this.jTextField4.setToolTipText(""+this.auxActivo.getDenominacion());
+            this.jButton3.requestFocus();
+        }
+        if(this.Aux_Seleccionado==this.Costos){
+            this.auxCostos=cta;
+            this.jTextField5.setText(""+this.auxCostos.getId());
+            this.jTextField5.setToolTipText(""+this.auxCostos.getDenominacion());
+            this.jComboBox2.requestFocus();
+        }
+        if(this.Aux_Seleccionado==this.Iva){
+            this.auxIva=cta;
+            this.jTextField6.setText(""+this.auxIva.getId());
+            this.jTextField6.setToolTipText(""+this.auxIva.getDenominacion());
+            this.jButton6.requestFocus();
+        }
+        if(this.jComboBox1.getSelectedItem().toString().equals("Servicio")){
+                this.jButton4.setEnabled(true);
+        }
+        if(this.jTextField3.getText().length()==8 && this.jTextField4.getText().length()==8 && this.jTextField5.getText().length()==8){
+                this.jButton4.setEnabled(true);
+        }
+        this.bp.dispose();
+        this.show();
+    }
+
+    /**
+     * @param suscripcion the suscripcion to set
+     */
+    public void setSuscripcion(ISuscripcionCrearArticulo suscripcion) {
+        this.suscripcion = suscripcion;
+    }
+
+    @Override
+    public void EventoDeSeleccionArticulo() {
+        this.show();
+        ba.dispose();
+        this.setArticulo(ba.ObtenerArticuloSeleccionado());        
+    }
+
+    @Override
+    public void setArticulo(Articulo articulo) {
+        this.a=articulo;
+        if(a!=null){
+            PucService ps=new PucService();
+            this.jFormattedTextField4.setValue(new Long(a.getCodigodebarra()));
+            this.jTextField1.setText(a.getNombre());
+            this.jTextField2.setText(a.getReferencia());
+            this.jFormattedTextField1.setValue(new Long(a.getCantidadkg()));
+            
+            this.jTextField3.setText(a.getAuxingreso());
+            this.jTextField3.setToolTipText(ps.ObtenerCtaPuc(a.getAuxingreso()).getDenominacion());
+            if(a.getTipo().toLowerCase().equals("producto")){
+               this.jTextField4.setText(a.getAuxactivo());
+               this.jTextField4.setToolTipText(ps.ObtenerCtaPuc(a.getAuxactivo()).getDenominacion());
+               this.jTextField5.setText(a.getAuxcosto());
+               this.jTextField5.setToolTipText(ps.ObtenerCtaPuc(a.getAuxcosto()).getDenominacion());
+               this.jComboBox1.setSelectedIndex(0);
+            }else{
+                this.jTextField4.setText("");
+                this.jTextField4.setToolTipText("");
+                this.jTextField5.setText("");
+                this.jTextField5.setToolTipText("");
+                this.jComboBox1.setSelectedIndex(1);
+            }
+            this.jComboBox2.setSelectedItem(a.getCategoria());
+            this.jFormattedTextField2.setValue(new Double(a.getPreciounitario()));
+            this.jFormattedTextField3.setValue(new Double(a.getPorcentageiva()));
+            this.jTextField6.setText(a.getAuxiva());
+            this.jTextField6.setToolTipText(ps.ObtenerCtaPuc(a.getAuxiva()).getDenominacion());
+            if(a.getAuxempaque()!=null){
+               this.jTextField7.setText(a.getAuxempaque());
+               this.jTextField7.setToolTipText(ps.ObtenerCtaPuc(a.getAuxempaque()).getDenominacion());
+            }else{
+               this.jTextField7.setText("");
+               this.jTextField7.setToolTipText(""); 
+            }
+        }else{
+            this.jFormattedTextField4.setValue(new Long(0));
+            this.jTextField1.setText("");
+            this.jTextField2.setText("");
+            this.jFormattedTextField1.setValue(new Long(0));
+            this.jComboBox1.setSelectedIndex(0);
+            this.jTextField3.setText("");
+            this.jTextField3.setToolTipText("");
+            this.jTextField4.setText("");
+            this.jTextField4.setToolTipText("");
+            this.jTextField5.setText("");
+            this.jTextField5.setToolTipText("");
+            this.jComboBox2.setSelectedIndex(0);
+            this.jFormattedTextField2.setValue(new Double(0));
+            this.jFormattedTextField3.setValue(new Double(0));
+            this.jTextField6.setText("");
+            this.jTextField6.setToolTipText("");
+            this.jTextField7.setText("");
+            this.jTextField7.setToolTipText("");
+        }        
+    }
+
+    @Override
+    public void EventoDeSeleccionAuxiliar() {
+        this.setCtaAuxiliar(bax.ObtenerAuxiliarSeleccionado());
+        this.show();
+        bax.dispose();
+        this.jButton4.requestFocus();
+    }
+
+    @Override
+    public void setCtaAuxiliar(Cta_PUC cta) {
+        this.auxempaque=cta;
+        if(cta!=null){
+            this.jTextField7.setText(""+cta.getId());
+            this.jTextField7.setToolTipText(cta.getDenominacion());
+        }else{
+            this.jTextField7.setText("");
+            this.jTextField7.setToolTipText("");
+        }
+    }
+}
